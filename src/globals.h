@@ -37,5 +37,10 @@ extern unsigned long lastLidarUpdate;
 extern unsigned long lastOledUpdate;
 
 extern uint32_t sentFeedback;
+// ===== Global goal (frontier) =====
+extern volatile bool globalGoalValid;
+extern volatile float globalGoalX;
+extern volatile float globalGoalY;
+
 
 #endif
