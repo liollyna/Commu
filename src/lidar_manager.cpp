@@ -17,6 +17,9 @@ HardwareSerial lidarSerial(1);
 // ===== micro-ROS =====
 static rcl_publisher_t scan_pub;
 static sensor_msgs__msg__LaserScan scan_msg;
+static rcl_subscription_t goal_sub;
+static geometry_msgs__msg__PoseStamped goal_msg;
+
 
 // Partagés avec imuTask
 rcl_publisher_t imu_pub;
@@ -227,5 +230,6 @@ void goal_callback(const void *msgin)
 
   Serial.printf("[GOAL] New goal: %.2f %.2f\n", globalGoalX, globalGoalY);
 }
+
 
 
