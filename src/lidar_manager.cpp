@@ -216,4 +216,16 @@ void microRosLidarTask(void *pv) {
     vTaskDelay(pdMS_TO_TICKS(50)); // 20 Hz
   }
 }
+void goal_callback(const void *msgin)
+{
+  const geometry_msgs__msg__PoseStamped *msg =
+      (const geometry_msgs__msg__PoseStamped *)msgin;
+
+  globalGoalX = msg->pose.position.x;
+  globalGoalY = msg->pose.position.y;
+  globalGoalValid = true;
+
+  Serial.printf("[GOAL] New goal: %.2f %.2f\n", globalGoalX, globalGoalY);
+}
+
 
