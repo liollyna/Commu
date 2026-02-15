@@ -1,6 +1,8 @@
 #include "lidar_manager.h"
 #include "config.h"
 #include "globals.h"
+#include <geometry_msgs/msg/pose_stamped.h>
+
 
 HardwareSerial lidarSerial(1);
 
