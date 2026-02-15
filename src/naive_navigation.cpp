@@ -3,6 +3,8 @@
 #include "globals.h"
 #include "motor_control.h"
 #include <math.h>
+#include "globals.h"
+
 
 // ============================================================
 //  Carte angulaire locale (distance min par degré)
