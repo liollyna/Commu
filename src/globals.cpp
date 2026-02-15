@@ -35,3 +35,7 @@ uint32_t sentFeedback = 0;
 
 WiFiServer streamServer(STREAM_PORT);
 WiFiClient streamClient;
+
+volatile bool globalGoalValid = false;
+volatile float globalGoalX = 0.0f;
+volatile float globalGoalY = 0.0f;
