@@ -42,4 +42,10 @@ extern uint32_t sentFeedback;
 extern WiFiServer streamServer;
 extern WiFiClient streamClient;
 
+// ===== Global goal (frontier) =====
+extern volatile bool globalGoalValid;
+extern volatile float globalGoalX;
+extern volatile float globalGoalY;
+
+
 #endif
