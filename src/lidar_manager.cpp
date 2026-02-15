@@ -157,8 +157,8 @@ void microRosLidarTask(void *pv) {
   rclc_node_init_default(&uros_node, "esp32_node", "", &uros_support);
   Serial.println("[uROS] Node OK");
 
-  rclc_executor_init(&executor, &uros_support.context, 0, &uros_allocator);
-
+  //rclc_executor_init(&executor, &uros_support.context, 0, &uros_allocator);
+  rclc_executor_init(&executor, &uros_support.context, 1, &uros_allocator);
   // Scan publisher (default = reliable, comme dans le code qui marchait)
   rclc_publisher_init_default(
       &scan_pub, &uros_node,
@@ -170,7 +170,23 @@ void microRosLidarTask(void *pv) {
       &imu_pub, &uros_node, ROSIDL_GET_MSG_TYPE_SUPPORT(sensor_msgs, msg, Imu),
       "/imu");
   Serial.println("[uROS] imu_pub OK");
+  
+  // Subscriber goal_pose
+  rclc_subscription_init_default(
+      &goal_sub,
+      &uros_node,
+      ROSIDL_GET_MSG_TYPE_SUPPORT(geometry_msgs, msg, PoseStamped),
+      "/goal_pose");
 
+  rclc_executor_add_subscription(
+      &executor,
+      &goal_sub,
+      &goal_msg,
+      &goal_callback,
+      ON_NEW_DATA);
+
+  Serial.println("[uROS] goal subscriber OK");
+  
   microRosReady = true;
   Serial.println("[uROS] microRosReady = true");
 
@@ -192,6 +208,8 @@ void microRosLidarTask(void *pv) {
   Serial.println("[uROS] Entering publish loop");
 
   while (true) {
+      // faire tourner le subscriber
+    rclc_executor_spin_some(&executor, RCL_MS_TO_NS(5));
     // --- SCAN ---
     for (int i = 0; i < 360; i++)
       scan_msg.ranges.data[i] = INFINITY;
@@ -230,6 +248,7 @@ void goal_callback(const void *msgin)
 
   Serial.printf("[GOAL] New goal: %.2f %.2f\n", globalGoalX, globalGoalY);
 }
+
 
 
 
