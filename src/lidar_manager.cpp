@@ -8,6 +8,8 @@
 #include <rclc/rclc.h>
 #include <sensor_msgs/msg/imu.h>
 #include <sensor_msgs/msg/laser_scan.h>
+#include <geometry_msgs/msg/pose_stamped.h>
+
 
 
 HardwareSerial lidarSerial(1);
@@ -214,3 +216,4 @@ void microRosLidarTask(void *pv) {
     vTaskDelay(pdMS_TO_TICKS(50)); // 20 Hz
   }
 }
+
