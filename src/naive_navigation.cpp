@@ -170,6 +170,13 @@ void naiveNavigationTask(void *pvParameters) {
 
   while (true) {
     float heading = computeNaiveHeading();
+    // ===== Guidance vers goal global =====
+    if (globalGoalValid && !obstacleDetected) {
+       // TODO: ici on remplacera par un vrai heading vers goal
+       // pour l’instant simple debug
+      Serial.println("[NAV] Goal active");
+}
+
 
     int leftPWM = 0;
     int rightPWM = 0;
